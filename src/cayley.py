@@ -1,6 +1,20 @@
 from math import gcd
+import operator
 import numpy as np
 import pandas as pd
+
+
+def cayley_table_generic(units: list, op, modulus: int = None) -> np.ndarray:
+    """ Generic Cayley table as a numpy array """
+    n = len(units)
+    mat = np.zeros((n, n), dtype=int)
+    for i in range(n):
+        for j in range(n):
+            result = op(units[i], units[j])
+            if modulus:
+                result = result % modulus
+            mat[i, j] = result
+    return mat
 
 class U:
     """ Multiplicative group of integers modulo n """
@@ -8,7 +22,7 @@ class U:
         self.n = n
     #
     def unit_group(self) -> list[int]:
-        """ List of relatively prime elemets in the group """
+        """ List of relatively prime elements in the group """
         units = [k for k in range(1, self.n) if gcd(k, self.n) == 1]
         return units
     #
@@ -18,30 +32,17 @@ class U:
     #
     def cayley_table(self) -> np.ndarray:
         """ Cayley table as a numpy array """
-        rown = coln = self.order()
         units = self.unit_group()
-        mat = np.empty((rown, coln))
-        for i, x in enumerate(units):
-            for j, y in enumerate(units):   
-                mat[i, j] = (x * y) % self.n
-        return mat
+        return cayley_table_generic(units, operator.mul, self.n)
     #
     def cayley_df(self) -> pd.DataFrame: 
         """ Cayley table as a pandas DataFrame """
+        units = self.unit_group()
         mat = self.cayley_table() 
+        print(f"\nUnits mod {self.n}: {units}\n")
         df = pd.DataFrame(mat, 
-            index=self.unit_group(), 
-            columns=self.unit_group()
+            index=units, 
+            columns=units
         )
         return df
-
-tt = U(4)
-tt.unit_group()
-tt.order()
-tt.cayley_df()
-print(tt.cayley_table().astype(int))
-
-u10 = U(10)
-u10.cayley_df()
-
 
