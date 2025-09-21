@@ -7,10 +7,12 @@ def main():
 
 if __name__ == "__main__":
 
-U(8).cayley_table().to_df()
+    # U(8).cayley_table().to_latex()
+    # Z(8).cayley_table()
 
-    tt = U(12)
-    tt.unit_group()
-    tt.order()
-    print(tt.cayley_df())
+    for i in range(1, 8): 
+        print(i)
+        print(Z(8).cyclic_subgroup(i))
+    
+    print(Z(8).generators())
 

@@ -89,9 +89,19 @@ class Z(Cartesian):
     #
     def cayley_df(self) -> pd.DataFrame: 
         """ Cayley table as a pandas DataFrame """
-        elements = list(range(self.n))
         cayley_matrix = self.cayley_table()
-        print(f"\nElements mod {self.n}: {elements}\n")
+        print(f"\nElements mod {self.n}: {self.elements}\n")
         return cayley_matrix.to_df()
 
+    def cyclic_subgroup(self, k: int) -> list[int]:
+        """ Generate the cyclic subgroup of order k """
+        if k <= 0 or k > self.n:
+            raise ValueError("k must be in the range 1 to n")
+        return list(set([(i * k) % self.n for i in range(self.n)]))
+    
+    def generators(self) -> list[int]:
+        """ List of generators of the group """
+        print(f"The generators:")
+        gs = [k for k in range(1, self.n) if gcd(k, self.n) == 1]
+        return gs
 
