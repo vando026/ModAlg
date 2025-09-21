@@ -10,9 +10,9 @@ if __name__ == "__main__":
     # U(8).cayley_table().to_latex()
     # Z(8).cayley_table()
 
-    for i in range(1, 8): 
-        print(i)
-        print(Z(8).cyclic_subgroup(i))
+    # for i in range(1, 8): 
+    #     print(i)
+    #     print(Z(8).cyclic_subgroup(i))
     
-    print(Z(8).generators())
+    print(U(49).unit_group())
 

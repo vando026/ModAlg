@@ -68,6 +68,15 @@ class U(Cartesian):
         print(f"\nUnits mod {self.n}: {units}\n")
         return cayley_matrix.to_df()
 
+    def cyclic(self, a, length: int = 10) -> list[int]:
+        """ Generate the cyclic subgroup"""
+        if a not in self.unit_group():
+            raise Exception("element <a> not in unit group.")
+        breakpoint()
+        sub = [a**i for i in range(length)]
+        return  list(set([k % self.n for k in sub]))
+
+
 class Z(Cartesian):
     """ Additive group of integers modulo n """
     def __init__(self, n: int):
@@ -93,7 +102,7 @@ class Z(Cartesian):
         print(f"\nElements mod {self.n}: {self.elements}\n")
         return cayley_matrix.to_df()
 
-    def cyclic_subgroup(self, k: int) -> list[int]:
+    def cyclic(self, k: int) -> list[int]:
         """ Generate the cyclic subgroup of order k """
         if k <= 0 or k > self.n:
             raise ValueError("k must be in the range 1 to n")
