@@ -14,7 +14,8 @@ if __name__ == "__main__":
     #     print(i)
     #     print(Z(8).cyclic_subgroup(i))
 
-    U(10).cyclic(9)
+    U(10).cyclic(3)
+    U(10).generators()
     
     print(U(49).unit_group())
 
