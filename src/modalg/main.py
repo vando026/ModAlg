@@ -15,4 +15,5 @@ if __name__ == "__main__":
     #     print(Z(8).cyclic_subgroup(i))
     
     print(U(49).unit_group())
+    print(U(49).cyclic(1))
 

@@ -72,8 +72,7 @@ class U(Cartesian):
         """ Generate the cyclic subgroup"""
         if a not in self.unit_group():
             raise Exception("element <a> not in unit group.")
-        breakpoint()
-        sub = [a**i for i in range(length)]
+        sub = [a**i for i in range(self.order() + length)]
         return  list(set([k % self.n for k in sub]))
 
 
