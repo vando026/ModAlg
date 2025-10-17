@@ -104,7 +104,7 @@ class Z(Cartesian):
         self.elements = list(range(self.n))
         super().__init__(self.elements)
     #
-    def unit_group(self) -> list[int]:
+    def group(self) -> list[int]:
         """ List of elements in the group """
         return self.elements
 
