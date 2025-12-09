@@ -17,6 +17,6 @@ if __name__ == "__main__":
     U(10).cyclic(3)
     U(10).generators()
     
-    print(U(49).unit_group())
+    print(U(49).group())
     print(U(49).cyclic(1))
 
