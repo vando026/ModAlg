@@ -13,21 +13,31 @@ Z6.generators()
 Z8 = Z(8) 
 Z8.generators()
 
-
 ## sage 
+
+# Note that in Sage, permutations are applied from left to right.
 G = SymmetricGroup (5)
 sigma = G ( " (1 ,3) (2 ,5 ,4) " )
 sigma * sigma
 
-G = SymmetricGroup(5)
+S = SymmetricGroup(5)
 A = G('(1,2)(4,5)')
 B = G('(1,5,3)(2,4)')
 # Apply B first if you want to do A* B. Start from right to left.
 B * A
 
+def rl(a, b):
+    # Do right to left composition
+    return b * a  # reverse order
 
-A = G ([2, 1, 3, 5, 4])
-sigma3
+# pg 150 ex 1
+S3 = SymmetricGroup(3)
+S12 = S3((1, 2))
+S13 = S3((1, 3))
+S12 * S13
+rl(S12, S13)
+
+
 
 
 
