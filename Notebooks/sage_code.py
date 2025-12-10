@@ -1,4 +1,12 @@
 #################################################################
+# Utilies
+#################################################################
+def name_of(elem, elements, names):
+    idx = elements.index(elem)
+    return names[idx]
+
+
+#################################################################
 ## SymmetricGroups 
 #################################################################
 
@@ -31,6 +39,10 @@ rl(S12, S13)
 rl(S123, S13)
 rl(S23, S13)
 
+G = SymmetricGroup(4)
+g = G("(1,3)(2,4)")
+g.tuple()
+
 
 #################################################################
 # Dihedral groups
@@ -49,6 +61,29 @@ G.cayley_table()
 G = DihedralGroup(4)
 r, f = G.gens()    # r = rotation, f = reflection
 
+list(G)
+# [(), (1,3)(2,4), (1,4,3,2), (1,2,3,4), (2,4), (1,3), (1,4)(2,3), (1,2)(3,4)]
+
+
+g = G("(1,3)(2,4)") # this is 180 degree rotation
+g.tuple()  # this gives bottom row
+g.dict() # this gives exact mapping
+# 1 2 3 4 
+# 3 4 1 2
+
+Compute:
+# R0 
+r
+#R1 or 90 degree rotation
+r^2
+r180 = r^2
+Permutation(r180)
+r180.tuple()
+r180.dict()
+
+# R2 * F2
+r2f2 = r^2 * (r * f)
+
 # Define your reflections
 F1 = f
 F2 = r * f
@@ -64,6 +99,10 @@ R3 = r^3
 elements = [R0, R1, R2, R3, F1, F2, F3, F4]
 names    = ["R0","R1","R2","R3","F1","F2","F3","F4"]
 
+def get_d4(elem): return name_of(elem, elements, names)
+
+get_d4(r2f2)
+
 print("Cayley Table:\n")
 print("    " + " ".join(f"{n:>3}" for n in names))
 
@@ -77,16 +116,15 @@ for i, a in enumerate(elements):
     print(f"{row_label:>3}  " + " ".join(f"{x:>3}" for x in row))
 
 
-def name_of(elem):
-    idx = elements.index(elem)
-    return names[idx]
-
 # page 198 example 12
 
-name_of(R0 * R3)   
-name_of(F2 * R1)   
-name_of(R0 * R3)
-R0 * R3 # gives 270
+get_d4(R0 * R3)   
+get_d4(F2 * R1)   
+get_d4(R0 * R3)
+r0r3 = R0 * R3 # gives 270
+get_d4(r0r3)
+r0r3.tuple()
+r0r3.dict()
 
 #   Original:      270 rotation: After (1,4,3,2):
 #   1 ---- 2       4 ---- 1
@@ -103,7 +141,8 @@ for a in elements:
 # My library
 #################################################################
 import sys
-sys.path.insert(0, '/home/alain/Documents/ModAlg/src')
+import os
+sys.path.insert(0, os.path.expanduser('~/Documents/Math/ModAlg/src'))
 
 from modalg.groups import U, Z
 from modalg.groups import Cartesian, CartesianMatrix
