@@ -43,6 +43,27 @@ G = SymmetricGroup(4)
 g = G("(1,3)(2,4)")
 g.tuple()
 
+# Chap 9, Ex 1
+G = SymmetricGroup(3)
+r, f = G.gens()
+r0 = G.identity()
+r   # cycle notation
+r.tuple() # bottom row
+r.dict() # exact mapping
+
+
+H = [r0, f]
+for a in G: 
+    for h in H:
+        product = [a * h for h in H]
+    print(f"{a} * H = {product}")
+
+for a in G: 
+    for h in H:
+        product = [h * a for h in H]
+    print(f"{a} * H = {product}")
+
+# aH neq Ha in general
 
 #################################################################
 # Dihedral groups
@@ -80,6 +101,12 @@ r180 = r^2
 Permutation(r180)
 r180.tuple()
 r180.dict()
+# Horizontal flip
+h = G("(1,4)(2,3)")
+h.dict()
+h.tuple()
+# This is the corresponding mapping:
+r^2 * f
 
 # R2 * F2
 r2f2 = r^2 * (r * f)
@@ -134,8 +161,8 @@ r0r3.dict()
 H = [R0, R2]  # subgroup H = {R0, R3}
 for a in elements:
     for h in H:
-        product = [name_of(a * h) for h in H]
-    print(f"{name_of(a)} * H = {product}")
+        product = [get_d4(a * h) for h in H]
+    print(f"{get_d4(a)} * H = {product}")
 
 #################################################################
 # My library
@@ -159,4 +186,13 @@ Cartesian([1, 3]).matrix(lambda a, b: (a + b) % 9).to_df()
 # https://www.youtube.com/@babymurcielaga9 
 
 Z9 = Z(9)
-Z9.generators()
+Z9.generators() 
+
+
+
+
+
+# D4 and K = {R0, R2}
+
+
+
