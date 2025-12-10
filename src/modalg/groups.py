@@ -57,6 +57,15 @@ class U(Cartesian):
         """ Order of the group """
         return len(self.group())
     #
+    def inverse(self, a: int) -> int:
+        """ Multiplicative inverse of a modulo n """
+        if a not in self.group():
+            raise Exception("element <a> not in unit group.")
+        for x in self.group():
+            if (a * x) % self.n == 1:
+                return x
+        raise Exception("No inverse found.")
+    #
     def cayley_table(self) -> CartesianMatrix:
         """ Cayley table as a CartesianMatrix """
         return self.matrix(lambda a, b: (a * b) % self.n)
