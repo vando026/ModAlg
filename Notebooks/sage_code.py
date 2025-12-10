@@ -1,5 +1,6 @@
+#################################################################
 ## SymmetricGroups 
-
+#################################################################
 
 # Note that in Sage, permutations are applied from left to right.
 G = SymmetricGroup (5)
@@ -31,16 +32,76 @@ rl(S123, S13)
 rl(S23, S13)
 
 
-
+#################################################################
 # Dihedral groups
+#################################################################
 
 G = DihedralGroup(4)
-G
+list(G)
+# 1 ---- 2
+# |      |
+# 4 ---- 3
+G.gens()
+G.cayley_table()
+# This is representing the symmetries of a square using permutations:
 
 
+G = DihedralGroup(4)
+r, f = G.gens()    # r = rotation, f = reflection
+
+# Define your reflections
+F1 = f
+F2 = r * f
+F3 = r^2 * f
+F4 = r^3 * f
+
+# Rotations
+R0 = G.identity()
+R1 = r
+R2 = r^2
+R3 = r^3
+
+elements = [R0, R1, R2, R3, F1, F2, F3, F4]
+names    = ["R0","R1","R2","R3","F1","F2","F3","F4"]
+
+print("Cayley Table:\n")
+print("    " + " ".join(f"{n:>3}" for n in names))
+
+for i, a in enumerate(elements):
+    row_label = names[i]
+    row = []
+    for b in elements:
+        product = a * b
+        idx = elements.index(product)
+        row.append(names[idx])
+    print(f"{row_label:>3}  " + " ".join(f"{x:>3}" for x in row))
 
 
+def name_of(elem):
+    idx = elements.index(elem)
+    return names[idx]
+
+# page 198 example 12
+
+name_of(R0 * R3)   
+name_of(F2 * R1)   
+name_of(R0 * R3)
+R0 * R3 # gives 270
+
+#   Original:      270 rotation: After (1,4,3,2):
+#   1 ---- 2       4 ---- 1
+#   |      |       |      |
+#   4 ---- 3       3 ---- 2
+
+H = [R0, R2]  # subgroup H = {R0, R3}
+for a in elements:
+    for h in H:
+        product = [name_of(a * h) for h in H]
+    print(f"{name_of(a)} * H = {product}")
+
+#################################################################
 # My library
+#################################################################
 import sys
 sys.path.insert(0, '/home/alain/Documents/ModAlg/src')
 
