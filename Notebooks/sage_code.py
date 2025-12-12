@@ -1,3 +1,10 @@
+import sys
+import os
+sys.path.insert(0, os.path.expanduser('~/Documents/Math/ModAlg/src'))
+
+from modalg.groups import U, Z
+from modalg.groups import Cartesian, CartesianMatrix
+
 #################################################################
 # Utilies
 #################################################################
@@ -6,18 +13,17 @@ def name_of(elem, elements, names):
     return names[idx]
 
 
-
-
 #################################################################
 # groups
 #################################################################
 
-# Find inverse of 13 mod 20
-inverse_mod(13, 20)
-17 * 13 % 20 # is equal to 1
+# Find inverse of 13 in Z_20
 Z(20).inverse(13)
 
+# Find inverse of 13 in U(14)
 U(14).inverse(13)
+inverse_mod(13, 14)
+(13 * 13) % 14 # is equal to 1
 
 
 #################################################################
@@ -181,13 +187,6 @@ for a in elements:
 #################################################################
 # My library
 #################################################################
-import sys
-import os
-sys.path.insert(0, os.path.expanduser('~/Documents/Math/ModAlg/src'))
-
-from modalg.groups import U, Z
-from modalg.groups import Cartesian, CartesianMatrix
-
 U(10).cyclic(3)
 U(10).generators()
 
