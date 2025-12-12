@@ -121,6 +121,12 @@ class Z(Cartesian):
         """ Order of the group """
         return self.n
 
+    def inverse(self, a: int) -> int:
+        """ Additive inverse of a modulo n """
+        if a not in self.group():
+            raise Exception("element <a> not in group.")
+        return (self.n - a) % self.n
+
     def cayley_table(self) -> np.ndarray:
         """ Cayley table as a numpy array """
         return self.matrix(lambda a, b: (a + b) % self.n)

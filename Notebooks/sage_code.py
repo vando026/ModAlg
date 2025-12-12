@@ -6,6 +6,20 @@ def name_of(elem, elements, names):
     return names[idx]
 
 
+
+
+#################################################################
+# groups
+#################################################################
+
+# Find inverse of 13 mod 20
+inverse_mod(13, 20)
+17 * 13 % 20 # is equal to 1
+Z(20).inverse(13)
+
+U(14).inverse(13)
+
+
 #################################################################
 ## SymmetricGroups 
 #################################################################
@@ -183,16 +197,32 @@ print(U(49).group())
 Cartesian([0, 3, 6]).matrix(lambda a, b: (a + b) % 9).to_df()
 Cartesian([1, 3]).matrix(lambda a, b: (a + b) % 9).to_df()
 
+# closed
+Cartesian([0, 4, 8, 12]).matrix(lambda a, b: (a + b) % 16).to_df()
+# not closed
+Cartesian([0, 4, 8, 12]).matrix(lambda a, b: (a + b) % 15).to_df()
+
+
+
+
 # https://www.youtube.com/@babymurcielaga9 
 
 Z9 = Z(9)
 Z9.generators() 
 
+#################################################################
+# Matrix multiplication in Sage
+##################################################################
+A = Matrix([[1, 2], [3, 4]])
+B = Matrix([[5, 6], [7, 8]])
+C = A * B
+det(C)
 
-
-
-
-# D4 and K = {R0, R2}
-
-
-
+# Example 19, page 46
+A = Matrix([[4, 5], [6, 3]])
+det(A) % 7 # answer is 3
+inv_det = inverse_mod(3, 7)
+(inv_det * A.adjugate()) % 7
+# Answer is 
+# 1 3 
+# 5 6 
